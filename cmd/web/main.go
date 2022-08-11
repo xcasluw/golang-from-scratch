@@ -1,9 +1,17 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 const portNumber = ":8080"
 
 func main() {
-	http.ListenAndServe(portNumber, nil)
+	server := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(),
+	}
+	err := server.ListenAndServe()
+	log.Fatal(err)
 }
